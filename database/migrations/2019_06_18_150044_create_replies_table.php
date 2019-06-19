@@ -15,8 +15,8 @@ class CreateRepliesTable extends Migration
     {
         Schema::create('wb_replies', function (Blueprint $table) {
             $table->increments('id');
-            $table->bigInteger('user_id');
             $table->bigInteger('topic_id');
+            $table->string('username');
             $table->text('content');
             $table->timestamps();
         });

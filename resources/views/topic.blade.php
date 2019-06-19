@@ -37,69 +37,52 @@
       </div>
       <hr style="margin-top: 5px;">
       
-      @for ($i = 0; $i < 10; $i++)
-        <div class="columns">
-          <div class="column is-three-quarters">
-            <div>
-              <i class="fa fa-comments fa-2x" aria-hidden="true"></i>&nbsp;&nbsp;
-              <div style="display: inline; padding-left: 10px;">
-                <a href="/topic/{{ $i }}" class="title is-5">โปรโมชั่น ที่น่าสนใจช่วงนี้ค่ะ</a>
-                <br>
-                <small class="text-muted" style="margin-top:10px;padding-left: 50px;">May 25, 2019 18:24</small>
+      @if (!empty($data['topics']['lists'] && count($data['topics']['lists']) > 0))
+        @for ($i = 0; $i < 10; $i++)
+          <div class="columns">
+            <div class="column is-three-quarters">
+              <div>
+                <i class="fa fa-comments fa-2x" aria-hidden="true"></i>&nbsp;&nbsp;
+                <div style="display: inline; padding-left: 10px;">
+                  <a href="/detail/{{ $i }}" class="title is-5">โปรโมชั่น ที่น่าสนใจช่วงนี้ค่ะ</a>
+                  <br>
+                  <small class="text-muted" style="margin-top:10px;padding-left: 50px;">May 25, 2019 18:24</small>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="column has-text-centered">
-            Ggma
-          </div>
-          <div class="column has-text-centered">
-            1
-          </div>
-        </div>
-
-        <!-- <article class="media">
-          <figure class="media-left">
-            <i class="fa fa-comments fa-2x" aria-hidden="true"></i>
-          </figure>
-          <div class="media-content">
-            <div class="content">
-              <p>
-                <a href="/topic/{{ $i }}" class="title is-5">โปรโมชั่น ที่น่าสนใจช่วงนี้ค่ะ</a>
-                <br>
-                <small class="text-muted" style="margin-top:10px;">May 25, 2019 18:24  โดย <b>Ggma</b></small>
-              </p>
+            <div class="column has-text-centered">
+              Ggma
+            </div>
+            <div class="column has-text-centered">
+              1
             </div>
           </div>
-          <div class="media-right">1</div>
-        </article> -->
+          <hr>
+          @endfor
+      @else
+        <div class="columns">
+          <div class="column has-text-centered">
+            <div style="display: inline; padding-left: 10px;">
+              <p class="text-muted">ยังไม่มีกระทู้</p>
+            </div>
+          </div>
+        </div>
         <hr>
-      @endfor
+      @endif
       
       <nav class="pagination">
-        <!-- <a class="pagination-previous is-disabled">Previous</a>
-        <a class="pagination-next">Next page</a> -->
         <ul class="pagination-list">
-          <li>
-            <a class="pagination-link">1</a>
-          </li>
-          <li>
-            <span class="pagination-ellipsis">…</span>
-          </li>
-          <li>
-            <a class="pagination-link">45</a>
-          </li>
-          <li>
-            <a class="pagination-link is-current">46</a>
-          </li>
-          <li>
-            <a class="pagination-link">47</a>
-          </li>
-          <li>
-            <span class="pagination-ellipsis">…</span>
-          </li>
-          <li>
-            <a class="pagination-link">86</a>
-          </li>
+          @if (!empty($data['topics']['page_all'] && $data['topics']['page_all'] > 1))
+            @for ($i = 1; $i <= $data['topics']['page_all']; $i++)
+              <li>
+                @if ($i == $data['page'])
+                  <a href="/topic?page={{ $i }}" class="pagination-link is-current">{{ $i }}</a>
+                @else
+                  <a href="/topic?page={{ $i }}" class="pagination-link">{{ $i }}</a>
+                @endif
+              </li>
+            @endfor
+          @endif
         </ul>
       </nav>
     </section>

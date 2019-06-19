@@ -9,7 +9,7 @@ class Topic extends Model {
 	protected $fillable = ['user_id', 'subject', 'content', 'category'];
 	public $timestamps = true;
 	
-	public function getAllTopicById ($categoryId, $page) {
+	public function getAllTopicByCategoryId ($categoryId, $page) {
 		$data = array();
 		$perpage = 20;
 		$skip    = ($page - 1) * $perpage;
@@ -22,7 +22,8 @@ class Topic extends Model {
 
 		$topicCount = Topic::where('category_id', $categoryId)->count();
 
-		if($topLists){
+		$data['lists'] = array();
+		if ($topLists) {
 			foreach($topLists as $topic){
 					array_push($data['lists'], array(
 							'id'          => $topic->id,

@@ -6941,3 +6941,11 @@ label.panel-block {
 .text-muted {
   color: #999999;
 }
+
+.editor-error {
+  border: 1px solid #d9534f;
+}
+
+.bg-gray {
+  background-color: #f2f4f6;
+}

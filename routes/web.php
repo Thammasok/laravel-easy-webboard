@@ -17,4 +17,7 @@ Route::get('/', function () {
 
 Route::get('/topic', 'TopicController@index');
 Route::get('/topic/new', 'TopicController@newTopic');
-Route::get('/topic/{id}', 'TopicController@detail');
+Route::get('/detail/{id}', 'TopicController@detail');
+
+Route::post('/topic/new', 'TopicController@create');
+Route::post('/topic/reply', 'TopicController@edit');

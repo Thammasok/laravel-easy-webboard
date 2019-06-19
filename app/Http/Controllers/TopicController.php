@@ -3,84 +3,70 @@
 namespace App\Http\Controllers;
 
 use App\Topic;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 
-class TopicController extends Controller
-{
-  /**
-   * Display a listing of the resource.
-   *
-   * @return \Illuminate\Http\Response
-   */
-  public function index() {
-    return view('topic');
+class TopicController extends Controller {
+  public function index($page = 1) {
+    $data         = array();
+    $data['page'] = isset($_GET['page']) ? $_GET['page'] : 1;
+
+    $topicModel = new Topic;
+    
+    $data['topics'] = $topicModel->getAllTopicByCategoryId (1,$data['page']);
+
+    return view('topic')->with('data', $data);
   }
 
   public function newTopic () {
     return view('create');
   }
 
-  /**
-   * Display the specified resource.
-   *
-   * @param  $id
-   * @return \Illuminate\Http\Response
-   */
-  public function detail($id) {
+  public function detail ($id) {
     $data['topic_id'] = $id;
     return view('detail')->with('data', $data);
   }
 
-  /**
-   * Show the form for creating a new resource.
-   *
-   * @return \Illuminate\Http\Response
-   */
-  public function create() {
-    //
+  public function create (Request $request) {
+    $validator = Validator::make($request->all(), [
+      'username' => 'required',
+      'email'    => 'required | email',
+      'subject'  => 'required',
+      'content'  => 'required'
+    ]);
+
+    if ($validator->fails()) {
+      return json_encode(["err" => true,  "detail" => $validator->errors()]);
+    }
+
+    $data["msg"]      = "success";
+    $data["username"] = $request->input('username');
+    $data["email"]    = $request->input('email');
+    $data["subject"]    = $request->input('subject');
+    $data["content"]  = $request->input('content');
+
+    return json_encode($data);
   }
 
-  /**
-   * Store a newly created resource in storage.
-   *
-   * @param  \Illuminate\Http\Request  $request
-   * @return \Illuminate\Http\Response
-   */
-  public function store(Request $request) {
-    //
+  public function edit(Request $request) {
+    $validator = Validator::make($request->all(), [
+      'username' => 'required',
+      'content'  => 'required'
+    ]);
+
+    if ($validator->fails()) {
+      return json_encode(["err" => true,  "detail" => $validator->errors()]);
+    }
+
+    $data["msg"]      = "success";
+    $data["username"] = $request->input('username');
+    $data["content"]  = $request->input('content');
+
+    return json_encode($data);
   }
 
-  /**
-   * Show the form for editing the specified resource.
-   *
-   * @param  \App\Topic  $topic
-   * @return \Illuminate\Http\Response
-   */
-  public function edit(Topic $topic)
-  {
-    //
-  }
-
-  /**
-   * Update the specified resource in storage.
-   *
-   * @param  \Illuminate\Http\Request  $request
-   * @param  \App\Topic  $topic
-   * @return \Illuminate\Http\Response
-   */
-  public function update(Request $request, Topic $topic)
-  {
-    //
-  }
-
-  /**
-   * Remove the specified resource from storage.
-   *
-   * @param  \App\Topic  $topic
-   * @return \Illuminate\Http\Response
-   */
-  public function destroy(Topic $topic)
-  {
-    //
-  }
+  // public function destroy(Topic $topic)
+  // {
+  //   //
+  // }
 }
