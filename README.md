@@ -1,5 +1,8 @@
 # Laravel Easy Webboard
 
+## Install Composer
+``` https://getcomposer.org/ ```
+
 ## Composer Install
 ``` composer install --no-dev ```
 ## Generate Key
