@@ -38,27 +38,30 @@
       <hr style="margin-top: 5px;">
       
       @if (!empty($data['topics']['lists'] && count($data['topics']['lists']) > 0))
-        @for ($i = 0; $i < 10; $i++)
+        @foreach ($data['topics']['lists'] as $topic)
           <div class="columns">
             <div class="column is-three-quarters">
               <div>
                 <i class="fa fa-comments fa-2x" aria-hidden="true"></i>&nbsp;&nbsp;
                 <div style="display: inline; padding-left: 10px;">
-                  <a href="/detail/{{ $i }}" class="title is-5">โปรโมชั่น ที่น่าสนใจช่วงนี้ค่ะ</a>
+                  <a href="/topic/{{ $topic['id'] }}" class="title is-5">{{ $topic['subject'] }}</a>
                   <br>
-                  <small class="text-muted" style="margin-top:10px;padding-left: 50px;">May 25, 2019 18:24</small>
+                  <?php
+                    date_default_timezone_set("Asia/Bangkok");
+                  ?>
+                  <small class="text-muted" style="margin-top:10px;padding-left: 50px;">{{ date("d M Y h:m", strtotime($topic['created_at'])) }}</small>
                 </div>
               </div>
             </div>
             <div class="column has-text-centered">
-              Ggma
+              {{ $topic['user_id'] }}
             </div>
             <div class="column has-text-centered">
-              1
+              ยังไม่ query
             </div>
           </div>
           <hr>
-          @endfor
+          @endforeach
       @else
         <div class="columns">
           <div class="column has-text-centered">

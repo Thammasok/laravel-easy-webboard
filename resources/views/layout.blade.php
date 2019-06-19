@@ -118,24 +118,30 @@
             .done(function(res) {
               var result = JSON.parse(res)
               if (result.err) {
-                if (result.detail.username) {
-                  $('#username').addClass('is-danger')
-                  $('#username-error').removeClass('is-hidden')
-                }
+                if (result.detail) {
+                  if (result.detail.username) {
+                    $('#username').addClass('is-danger')
+                    $('#username-error').removeClass('is-hidden')
+                  }
 
-                if (result.detail.email) {
-                  $('#email').addClass('is-danger')
-                  $('#email-error').removeClass('is-hidden')
-                }
-                
-                if (result.detail.subject) {
-                  $('#subject').addClass('is-danger')
-                  $('#subject-error').removeClass('is-hidden')
-                }
+                  if (result.detail.email) {
+                    $('#email').addClass('is-danger')
+                    $('#email-error').removeClass('is-hidden')
+                  }
+                  
+                  if (result.detail.subject) {
+                    $('#subject').addClass('is-danger')
+                    $('#subject-error').removeClass('is-hidden')
+                  }
 
-                if (result.detail.content) {
-                  $('#editor').addClass('editor-error')
-                  $('#content-error').removeClass('is-hidden')
+                  if (result.detail.content) {
+                    $('#editor').addClass('editor-error')
+                    $('#content-error').removeClass('is-hidden')
+                  }
+                } else {
+                  if (result.msg) {
+                    $('#msg-fail').removeClass('is-hidden')
+                  }
                 }
               } else {
                 $('#msg-success').removeClass('is-hidden')

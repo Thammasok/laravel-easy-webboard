@@ -5,25 +5,25 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable
-{
-    use Notifiable;
+class User extends Authenticatable {
+	protected $table = 'wb_users';
+	protected $fillable = ['name', 'email'];
+	public $timestamps = true;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'name', 'email',
-    ];
+	public function saveUser ($data) {
+		$result =  User::where('email', $data['email'])->get();
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-    // protected $hidden = [
-    //     'password', 'remember_token',
-    // ];
+		if(count($result) > 0) {
+			return $result[0]->id;
+		} else {
+			$input = [
+				'email' => $data['email'],
+				'name'  => $data['name']
+			];
+
+			$user = User::create($input);
+
+			return $user->id;
+		}
+	}
 }

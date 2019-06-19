@@ -67,6 +67,14 @@
         </div>
       </div>
 
+      <div id="msg-fail" class="columns is-hidden">
+        <div class="column is-half is-offset-one-quarter">
+          <div class="notification is-danger">
+            มีกระทู้นี้ของคุณแล้ว
+          </div>
+        </div>
+      </div>
+
       <div class="columns">
         <div class="column is-half is-offset-one-quarter">
           <button id="create-btn" class="button is-primary"> ตั้งกระทู้ </button>
