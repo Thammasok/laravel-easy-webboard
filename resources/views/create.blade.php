@@ -6,7 +6,7 @@
       <nav class="breadcrumb">
         <ul>
           <li>
-            <a href="/topic">Webboard</a>
+            <a href="{{ url('/topic') }}">Webboard</a>
           </li>
           <li class="is-active"><a>สร้างกระทู้ใหม่</a></li>
         </ul>
@@ -78,7 +78,7 @@
       <div class="columns">
         <div class="column is-half is-offset-one-quarter">
           <button id="create-btn" class="button is-primary"> ตั้งกระทู้ </button>
-          <a href="/topic" class="button is-danger is-outlined"> ยกเลิก </a>
+          <a href="{{ url('/topic') }}" class="button is-danger is-outlined"> ยกเลิก </a>
         </div>
       </div>
     </section>

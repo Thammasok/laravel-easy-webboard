@@ -10,14 +10,14 @@ use Illuminate\Http\Request;
 
 class TopicController extends Controller {
 
-  public function index($page = 1) {
+  public function index ($page = 1) {
     $data         = array();
     $data["page"] = isset($_GET["page"]) ? $_GET["page"] : 1;
 
     $topicModel = new Topic;
     
     $data["topics"] = $topicModel->getAllTopicByCategoryId (1, $data["page"]);
-
+    
     return view("topic")->with("data", $data);
   }
 

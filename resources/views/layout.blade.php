@@ -8,22 +8,10 @@
     <title>Webboards</title>
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <link href='https://cdn.jsdelivr.net/npm/froala-editor@3.0.0/css/froala_editor.pkgd.min.css' rel='stylesheet' type='text/css' />
-    <link href="{{ URL::asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ URL::asset('public/css/app.css') }}" rel="stylesheet">
   </head>
   <body>
     <section class="hero is-primary">
-      <!-- <div class="hero-head">
-        <nav class="main-nav navbar">
-          <div class="container">
-            <div class="navbar-start">
-              <a class="navbar-item" href="/">
-                <h1 class="title is-5">Website</h1>
-              </a>
-            </div>
-          </div>
-        </nav>
-      </div> -->
-
       <div class="hero-body">
         <div class="container">
           <h1 class="title">
@@ -51,7 +39,9 @@
     
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <script type='text/javascript' src='https://cdn.jsdelivr.net/npm/froala-editor@3.0.0/js/froala_editor.pkgd.min.js'></script>
+    <script type='text/javascript' src="{{ URL::asset('public/js/moment.js') }}"></script>
     <script>
+    var baseUrl = "{{ url('/') }}"
     function validateEmail(email) {
       var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       return re.test(String(email).toLowerCase());
@@ -105,7 +95,7 @@
           if (username && subject && (email && validateEmail(email)) && content) {
             $.ajax({
               method: "POST",
-              url: "/topic/new",
+              url: baseUrl + "/topic/new",
               headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
               },
@@ -178,7 +168,7 @@
           if (username && content) {
             $.ajax({
               method: "POST",
-              url: "/topic/reply",
+              url: baseUrl + "/topic/reply",
               headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
               },
@@ -207,6 +197,26 @@
                   }
                 }
               } else {
+                var subject = $('#subject').text()
+                var html = '<div class="columns notification is-variable bd-klmn-columns is-1 bg-gray" style="margin-top: 10px;">' +
+                           '<div class="column is-2">' +
+                              '<div class="is-primary has-text-centered">' +
+                                '<figure class="image is-64x64" style="margin-left: auto; margin-right: auto;">' +
+                                  '<img alt="Image" src="'+  baseUrl + '/public/user.png">' +
+                                '</figure>' +
+                                '<h2 style="margin-top:10px;">' + username + '<h2>' +
+                              '</div>' +
+                            '</div>' +
+                            '<div class="column is-10">' +
+                              '<div>' +
+                                '<h4 class="title is-5">[ตอบกลับ] ' + subject + '</h4>' +
+                                '<small class="text-muted">' + moment().format("DD MMM YYYY h:mm") + '</small>' +
+                                '<p style="margin-top: 25px;">' + content + '</p>' +
+                              '</div>' +
+                            '</div>' +
+                          '</div>'
+                $('#reply-msg').append(html)
+                $('#no-reply-block').remove()
                 $('#username').val("")
                 $('#msg-success').removeClass('is-hidden')
               }

@@ -6,7 +6,7 @@
       <nav class="breadcrumb">
         <ul>
           <li class="is-active">
-            <a href="/topic">Webboard</a>
+            <a href="{{ url('/topic') }}">Webboard</a>
           </li>
         </ul>
       </nav>
@@ -14,7 +14,7 @@
 
     <section class="section">
       <div>
-        <a href="/topic/new" class="button is-primary"> ตั้งกระทู้ใหม่ </a>
+        <a href="{{ url('/topic/new') }}" class="button is-primary"> ตั้งกระทู้ใหม่ </a>
       </div>
       <br>
       <hr>
@@ -44,7 +44,7 @@
               <div>
                 <i class="fa fa-comments fa-2x" aria-hidden="true"></i>&nbsp;&nbsp;
                 <div style="display: inline; padding-left: 10px;">
-                  <a href="/topic/{{ $topic['id'] }}" class="title is-5">{{ $topic['subject'] }}</a>
+                  <a href="{{ url('/topic') }}/{{ $topic['id'] }}" class="title is-5">{{ $topic['subject'] }}</a>
                   <br>
                   <small class="text-muted" style="margin-top:10px;padding-left: 50px;">{{ date("d M Y h:m", strtotime($topic['created_at'])) }}</small>
                 </div>
@@ -76,9 +76,9 @@
             @for ($i = 1; $i <= $data['topics']['page_all']; $i++)
               <li>
                 @if ($i == $data['page'])
-                  <a href="/topic?page={{ $i }}" class="pagination-link is-current">{{ $i }}</a>
+                  <a href="{{ url('/topic') }}?page={{ $i }}" class="pagination-link is-current">{{ $i }}</a>
                 @else
-                  <a href="/topic?page={{ $i }}" class="pagination-link">{{ $i }}</a>
+                  <a href="{{ url('/topic') }}?page={{ $i }}" class="pagination-link">{{ $i }}</a>
                 @endif
               </li>
             @endfor

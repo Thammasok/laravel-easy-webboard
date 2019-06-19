@@ -17,7 +17,7 @@ class Topic extends Model {
 		$skip    = ($page - 1) * $perpage;
 
 		$topicLists = DB::table('wb_topics')
-		            ->join('wb_category', 'wb_topics.category_id', '=', 'wb_category.id')
+		            ->leftJoin('wb_category', 'wb_topics.category_id', '=', 'wb_category.id')
 		            ->join('wb_users', 'wb_topics.user_id', '=', 'wb_users.id')
 		            ->select('wb_topics.*', 'wb_users.id as user_id', 'wb_users.name as name', 'wb_users.email as email')
 		            ->where("wb_topics.category_id", $categoryId)
@@ -26,12 +26,12 @@ class Topic extends Model {
 								->take($perpage)	
 		            ->get();
 
-
 		$topicCount = Topic::where("category_id", $categoryId)->count();
 
 		$data["lists"] = array();
 		if ($topicLists) {
 			foreach($topicLists as $topic){
+
 					$replyNumber = Replise::where("topic_id", $topic->id)->count();
 
 					array_push($data["lists"], array(

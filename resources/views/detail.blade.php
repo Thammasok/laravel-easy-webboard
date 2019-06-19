@@ -6,7 +6,7 @@
       <nav class="breadcrumb">
         <ul>
           <li>
-            <a href="/topic">Webboard</a>
+            <a href="{{ url('/topic') }}">Webboard</a>
           </li>
           <li class="is-active">
             @if (count($data['detail']) > 0)
@@ -33,14 +33,14 @@
           <div class="column is-2">
             <div class="is-primary has-text-centered">
               <figure class="image is-64x64" style="margin-left: auto; margin-right: auto;"> 
-                <img alt="Image" src="{{ URL::asset('user.png') }}">
+                <img alt="Image" src="{{ URL::asset('public/user.png') }}">
               </figure>
               <h2 class="title is-5" style="margin-top:10px;">{{ $data['detail'][0]['name'] }}<h2>
             </div>
           </div>
           <div class="column is-10">
             <div>
-              <h4 class="title is-4">{{ $data['detail'][0]['subject'] }}</h4>
+              <h4 id="subject" class="title is-4">{{ $data['detail'][0]['subject'] }}</h4>
               <small class="text-muted">{{ date("d M Y h:m", strtotime($data['detail'][0]['created_at'])) }}</small>
               <p style="margin-top: 25px;">
                 {!! $data['detail'][0]['content'] !!}
@@ -57,7 +57,7 @@
                 <div class="column is-2">
                   <div class="is-primary has-text-centered">
                     <figure class="image is-64x64" style="margin-left: auto; margin-right: auto;"> 
-                      <img alt="Image" src="{{ URL::asset('user.png') }}">
+                      <img alt="Image" src="{{ URL::asset('public/user.png') }}">
                     </figure>
                     <h2 style="margin-top:10px;">{{ $reply['username'] }}<h2>
                   </div>
@@ -74,7 +74,7 @@
               </div>
             @endforeach
           @else
-            <div class="columns">
+            <div id="no-reply-block" class="columns">
               <div class="column has-text-centered">
                 <div style="display: inline; padding-left: 10px;">
                   <p class="text-muted">ยังไม่มีการตอบกลับ</p>
