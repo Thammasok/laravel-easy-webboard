@@ -154,13 +154,16 @@
         })
 
         $('#reply-btn').click(function () {
-          var content = editor.html.get()
+          var content  = editor.html.get()
           var username = $('#username').val()
+          var topic_id  = $('#topic_id').val() 
           
           $('#username').removeClass('is-danger')
           $('#username-error').addClass('is-hidden')
           $('#editor').removeClass('editor-error')
           $('#content-error').addClass('is-hidden')
+          $('#msg-fail').addClass('is-hidden')
+          $('#msg-success').addClass('is-hidden')
 
           if (!username) {
             $('#username').addClass('is-danger')
@@ -179,7 +182,8 @@
               headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
               },
-              data: { 
+              data: {
+                topic_id,
                 username,
                 content
               }
@@ -187,16 +191,23 @@
             .done(function(res) {
               var result = JSON.parse(res)
               if (result.err) {
-                if (result.detail.username) {
-                  $('#username').addClass('is-danger')
-                  $('#username-error').removeClass('is-hidden')
-                }
+                if (result.detail) {
+                  if (result.detail.username) {
+                    $('#username').addClass('is-danger')
+                    $('#username-error').removeClass('is-hidden')
+                  }
 
-                if (result.detail.content) {
-                  $('#editor').addClass('editor-error')
-                  $('#content-error').removeClass('is-hidden')
+                  if (result.detail.content) {
+                    $('#editor').addClass('editor-error')
+                    $('#content-error').removeClass('is-hidden')
+                  }
+                } else {
+                  if (result.msg) {
+                    $('#msg-fail').removeClass('is-hidden')
+                  }
                 }
               } else {
+                $('#username').val("")
                 $('#msg-success').removeClass('is-hidden')
               }
             });

@@ -5,8 +5,8 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 
 class Replise extends Model {
-	protected $table = 'wb_replies';
-	protected $fillable = ['user_id', 'topic_id', 'content'];
+	protected $table = "wb_replies";
+	protected $fillable = ["topic_id", "username", "content"];
 	public $timestamps = true;
 	
 	public function getAllRepliseByTopicId ($id, $page) {
@@ -14,40 +14,48 @@ class Replise extends Model {
 		$perpage = 20;
 		$skip    = ($page - 1) * $perpage;
 
-		$repliseLists = Replise::where('topic_id', $id)
-														->orderBy('id', 'desc')
+		$repliseLists = Replise::where("topic_id", $id)
+														->orderBy("id", "desc")
 														->skip($skip)
 														->take($perpage)
 														->get();
 
-		$repliseCount = Replise::where('topic_id', $id)->count();
+		$repliseCount = Replise::where("topic_id", $id)->count();
 
 		if($repliseLists){
 			foreach($repliseLists as $reply){
-					array_push($data['lists'], array(
-							'id'          => $reply->id,
-							'user_id'     => $reply->user_id,
-							'topic_id'    => $reply->topic_id,
-							'content'     => $reply->content,
-							'created_at'  => $reply->created_at
+					array_push($data["lists"], array(
+							"id"          => $reply->id,
+							"user_id"     => $reply->user_id,
+							"topic_id"    => $reply->topic_id,
+							"content"     => $reply->content,
+							"created_at"  => $reply->created_at
 					));
 			}
 		}
 
-		$data['page_all'] = max(ceil($repliseCount / $perpage), 1);
+		$data["page_all"] = max(ceil($repliseCount / $perpage), 1);
 
 		return $data;
 	}
 
 	public function saveReply ($data) {
-		$input = [
-			'user_id' => $data['user_id'],
-			'topic_id'=> $data['topic_id'],
-			'content' => $data['content']
-		];
+		$result =  Replise::where("topic_id", $data["topic_id"])
+										->where("username", $data["username"])
+										->where("content", $data["content"])
+										->get();
 
-		$reply = Replise::create($input);
+		if(count($result) > 0) {
+			return 0;
+		} else {
+			$input = [
+				"topic_id" => $data["topic_id"],
+				"username" => $data["username"],
+				"content"  => $data["content"]
+			];
 
-    return $reply->id;
+			$reply = Replise::create($input);
+			return $reply->id;
+		}
 	}
 }

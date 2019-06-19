@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Topic;
 use App\User;
+use App\Replise;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 
 class TopicController extends Controller {
+
   public function index($page = 1) {
     $data         = array();
     $data["page"] = isset($_GET["page"]) ? $_GET["page"] : 1;
@@ -66,8 +68,9 @@ class TopicController extends Controller {
     return json_encode($data);
   }
 
-  public function edit(Request $request) {
+  public function edit (Request $request) {
     $validator = Validator::make($request->all(), [
+      "topic_id" => "required",
       "username" => "required",
       "content"  => "required"
     ]);
@@ -76,9 +79,19 @@ class TopicController extends Controller {
       return json_encode(["err" => true,  "detail" => $validator->errors()]);
     }
 
-    $data["msg"]      = "success";
+    $data["topic_id"] = $request->input("topic_id");
     $data["username"] = $request->input("username");
     $data["content"]  = $request->input("content");
+
+    $replyModel = new Replise;
+    $replyId = $replyModel->saveReply($data);
+
+    if ($replyId == 0) {
+      $data["err"] = true;
+      $data["msg"] = "มีกระทู้นี้แล้ว";
+    } else {
+      $data["reply_id"] = $replyId;
+    }
 
     return json_encode($data);
   }

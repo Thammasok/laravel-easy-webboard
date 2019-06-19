@@ -12,5 +12,6 @@
 ``` php artisan db:seed ```
 
 ## Local Development Server
-This command will start a development server at http://localhost:8000:
 ``` php artisan serve ```
+
+This command will start a development server at http://localhost:8000:

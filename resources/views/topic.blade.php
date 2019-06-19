@@ -46,9 +46,6 @@
                 <div style="display: inline; padding-left: 10px;">
                   <a href="/topic/{{ $topic['id'] }}" class="title is-5">{{ $topic['subject'] }}</a>
                   <br>
-                  <?php
-                    date_default_timezone_set("Asia/Bangkok");
-                  ?>
                   <small class="text-muted" style="margin-top:10px;padding-left: 50px;">{{ date("d M Y h:m", strtotime($topic['created_at'])) }}</small>
                 </div>
               </div>

@@ -19,7 +19,7 @@ class Topic extends Model {
 		$topicLists = DB::table('wb_topics')
 		            ->join('wb_category', 'wb_topics.category_id', '=', 'wb_category.id')
 		            ->join('wb_users', 'wb_topics.user_id', '=', 'wb_users.id')
-		            ->select('wb_topics.*', 'wb_users.*')
+		            ->select('wb_topics.*', 'wb_users.id as user_id', 'wb_users.name as name', 'wb_users.email as email')
 		            ->where("wb_topics.category_id", $categoryId)
 		            ->orderBy("wb_topics.id", "desc")
 								->skip($skip)
@@ -61,7 +61,8 @@ class Topic extends Model {
 
 		if($topicDetail){
 			foreach($topicDetail as $topic){
-					$user = User::where('id', $topic->user_id)->get();
+					$user 	 = User::where('id', $topic->user_id)->get();
+					$replise = Replise::where('topic_id', $topic->id)->get();
 
 					array_push($data, array(
 							"id"          => $topic->id,
@@ -70,7 +71,8 @@ class Topic extends Model {
 							"email"				=> $user[0]->email,
 							"subject"     => $topic->subject,
 							"content"     => $topic->content,
-							"category"    => $topic->category,
+							"category_id" => $topic->category_id,
+							"replise" 		=> $replise,
 							"created_at"  => $topic->created_at
 					));
 			}
