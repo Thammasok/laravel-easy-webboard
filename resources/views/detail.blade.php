@@ -35,7 +35,7 @@
               <figure class="image is-64x64" style="margin-left: auto; margin-right: auto;"> 
                 <img alt="Image" src="{{ URL::asset('user.png') }}">
               </figure>
-              <h2 style="margin-top:10px;">{{ $data['detail'][0]['user_id'] }}<h2>
+              <h2 class="title is-5" style="margin-top:10px;">{{ $data['detail'][0]['name'] }}<h2>
             </div>
           </div>
           <div class="column is-10">

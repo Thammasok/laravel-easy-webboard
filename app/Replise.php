@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 
 class Replise extends Model {
-	protected $table = 'wb_replise';
+	protected $table = 'wb_replies';
 	protected $fillable = ['user_id', 'topic_id', 'content'];
 	public $timestamps = true;
 	

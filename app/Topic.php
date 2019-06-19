@@ -2,34 +2,47 @@
 
 namespace App;
 
+use App\Replise;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 
 class Topic extends Model {
 	protected $table = "wb_topics";
 	protected $fillable = ["user_id", "subject", "content", "category"];
 	public $timestamps = true;
-	
+
 	public function getAllTopicByCategoryId ($categoryId, $page) {
 		$data = array();
 		$perpage = 20;
 		$skip    = ($page - 1) * $perpage;
 
-		$topLists = Topic::where("category_id", $categoryId)
-													->orderBy("id", "desc")
-													->skip($skip)
-													->take($perpage)
-													->get();
+		$topicLists = DB::table('wb_topics')
+		            ->join('wb_category', 'wb_topics.category_id', '=', 'wb_category.id')
+		            ->join('wb_users', 'wb_topics.user_id', '=', 'wb_users.id')
+		            ->select('wb_topics.*', 'wb_users.*')
+		            ->where("wb_topics.category_id", $categoryId)
+		            ->orderBy("wb_topics.id", "desc")
+								->skip($skip)
+								->take($perpage)	
+		            ->get();
+
 
 		$topicCount = Topic::where("category_id", $categoryId)->count();
 
 		$data["lists"] = array();
-		if ($topLists) {
-			foreach($topLists as $topic){
+		if ($topicLists) {
+			foreach($topicLists as $topic){
+					$replyNumber = Replise::where("topic_id", $topic->id)->count();
+
 					array_push($data["lists"], array(
 							"id"          => $topic->id,
 							"subject"     => $topic->subject,
 							"user_id"			=> $topic->user_id,
+							"name" 				=> $topic->name,
+							"email" 			=> $topic->email,
+							"category_id" => $topic->category_id,
 							"content"     => $topic->content,
+							"reply_number"=> $replyNumber,
 							"category_id" => $topic->category_id,
 							"created_at"  => $topic->created_at
 					));
@@ -48,9 +61,13 @@ class Topic extends Model {
 
 		if($topicDetail){
 			foreach($topicDetail as $topic){
+					$user = User::where('id', $topic->user_id)->get();
+
 					array_push($data, array(
 							"id"          => $topic->id,
 							"user_id"     => $topic->user_id,
+							"name"				=> $user[0]->name,
+							"email"				=> $user[0]->email,
 							"subject"     => $topic->subject,
 							"content"     => $topic->content,
 							"category"    => $topic->category,

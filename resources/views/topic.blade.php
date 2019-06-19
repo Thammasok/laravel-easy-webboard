@@ -54,10 +54,10 @@
               </div>
             </div>
             <div class="column has-text-centered">
-              {{ $topic['user_id'] }}
+              {{ $topic['name'] }}
             </div>
             <div class="column has-text-centered">
-              ยังไม่ query
+              {{ $topic['reply_number'] }}
             </div>
           </div>
           <hr>

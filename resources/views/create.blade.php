@@ -17,17 +17,6 @@
       <div class="columns" style="margin-top: 10px;">
         <div class="column is-half is-offset-one-quarter">
           <div class="field">
-            <label class="label">ชื่อผู้โพส *</label>
-            <p class="control has-icons-left has-icons-right">
-              <input id="username" name="username" class="input" type="text" placeholder="ใส่ชื่อของคุณ">
-              <span class="icon is-small is-left">
-                <i class="fa fa-user"></i>
-              </span>
-            </p>
-            <p id="username-error" class="is-hidden help is-danger">ใส่ชื่อของคุณ</p>
-          </div>
-
-          <div class="field">
             <label class="label">อีเมล์ *</label>
             <p class="control has-icons-left has-icons-right">
               <input id="email" name="email" class="input" type="text" placeholder="ใส่อีเมล์ของคุณ">
@@ -36,6 +25,17 @@
               </span>
             </p>
             <p id="email-error" class="is-hidden help is-danger">ใส่อีเมล์ของคุณให้ถูกต้อง</p>
+          </div>
+          
+          <div class="field">
+            <label class="label">ชื่อผู้โพส *</label>
+            <p class="control has-icons-left has-icons-right">
+              <input id="username" name="username" class="input" type="text" placeholder="ใส่ชื่อของคุณ">
+              <span class="icon is-small is-left">
+                <i class="fa fa-user"></i>
+              </span>
+            </p>
+            <p id="username-error" class="is-hidden help is-danger">ใส่ชื่อของคุณ</p>
           </div>
 
           <div class="field">

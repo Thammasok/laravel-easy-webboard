@@ -79,6 +79,7 @@
           $('#email-error').addClass('is-hidden')
           $('#content-error').addClass('is-hidden')
           $('#subject-error').addClass('is-hidden')
+          $('#msg-fail').addClass('is-hidden')
           $('#msg-success').addClass('is-hidden')
 
           if (!username) {
