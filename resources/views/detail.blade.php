@@ -88,7 +88,7 @@
         
       <section id="reply-block">
         <div class="columns" style="margin-top: 10px;">
-          <div class="column is-9 is-offset-3">
+          <div class="column is-three-fifths is-offset-one-fifth">
             <div class="field">
               <label class="label">ชื่อผู้โพส *</label>
               <p class="control has-icons-left has-icons-right">
@@ -103,7 +103,7 @@
         </div>
 
         <div class="columns" style="margin-top: 10px;">
-          <div class="column is-9 is-offset-3">
+          <div class="column is-three-fifths is-offset-one-fifth">
             <label class="label">ข้อความ *</label>
             <div id="editor"></div>
             <p id="content-error" class="is-hidden help is-danger">ใส่ข้อความของคุณ</p>
@@ -111,7 +111,7 @@
         </div>
 
         <div id="msg-success" class="columns is-hidden">
-          <div class="column is-9 is-offset-3">
+          <div class="column is-three-fifths is-offset-one-fifth">
             <div class="notification is-success">
               บันทึกกระทู้ของคุณแล้ว
             </div>
@@ -119,7 +119,7 @@
         </div>
 
         <div id="msg-fail" class="columns is-hidden">
-          <div class="column is-9 is-offset-3">
+          <div class="column is-three-fifths is-offset-one-fifth">
             <div class="notification is-danger">
               มีกระทู้นี้ของคุณแล้ว
             </div>
@@ -131,7 +131,7 @@
         @endif
 
         <div class="columns">
-          <div class="column is-half is-offset-one-quarter">
+          <div class="column is-three-fifths is-offset-one-fifth">
             <button id="reply-btn" class="button is-primary"> ตั้งกระทู้ </button>
           </div>
         </div>
