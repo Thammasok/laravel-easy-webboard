@@ -6,7 +6,7 @@
       <nav class="breadcrumb">
         <ul>
           <li>
-            <a href="{{ url('/topic') }}">Webboard</a>
+            <a href="{{ url('/') }}">Webboard</a>
           </li>
           <li class="is-active">
             @if (count($data['detail']) > 0)

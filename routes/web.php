@@ -11,13 +11,13 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
-Route::get('/topic', 'TopicController@index');
-Route::get('/topic/new', 'TopicController@newTopic');
-Route::get('/topic/{id}', 'TopicController@detail');
+Route::get('/', 'TopicController@index');
+Route::get('/new', 'TopicController@newTopic');
+Route::get('/{id}', 'TopicController@detail');
 
-Route::post('/topic/new', 'TopicController@create');
-Route::post('/topic/reply', 'TopicController@edit');
+Route::post('/new', 'TopicController@create');
+Route::post('/reply', 'TopicController@edit');

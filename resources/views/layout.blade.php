@@ -95,7 +95,7 @@
           if (username && subject && (email && validateEmail(email)) && content) {
             $.ajax({
               method: "POST",
-              url: baseUrl + "/topic/new",
+              url: baseUrl + "/new",
               headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
               },
@@ -168,7 +168,7 @@
           if (username && content) {
             $.ajax({
               method: "POST",
-              url: baseUrl + "/topic/reply",
+              url: baseUrl + "/reply",
               headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
               },
